@@ -23,13 +23,15 @@ public class trafficFlow {
             
             put each 100ms loop into data
 */ 
-            //Write to Buffer        
+            //Write to Buffer       
+        
         TrafficStringBuffer.update(data);
 
         //Increment time interval        
         timeFrame += IntervalUpdate;
 
         }
+        DrawIt.showAnimation();
     
     
     }
