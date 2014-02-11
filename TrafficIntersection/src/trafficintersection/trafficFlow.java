@@ -4,27 +4,34 @@ package trafficintersection;
 public class trafficFlow {
     
     private static int IntervalUpdate = 100;
+    private static int timeFrame = 0;
+    private static int lengthOfSimulator = 60000;
+    private static String data;
     
-    
-    while (timeframe < lenthOfSimulator){
-    
-    getLights() for/while
-    getCars()   for/while
-    
-    carsCollision() for/while
-    setSpeed()      for/while
-    setCarsLocation()
-    setLights()
+    public static void main(String[] args) {
+        while (timeFrame < lengthOfSimulator) {
+
+            /*
             
-    //Write to Buffer        
-    setBuffer()
+            getLights(); // for/while
+            getCar(); //   for/while
             
-    //Increment time interval        
-    timeFrame += IntervalUpdate;
+            carsCollision(); // for/while
+            setSpeed();      // for/while
+            setCarsLocation();
+            setLights();
             
+            put each 100ms loop into data
+*/ 
+            //Write to Buffer        
+        TrafficStringBuffer.update(data);
+
+        //Increment time interval        
+        timeFrame += IntervalUpdate;
+
+        }
+    
+    
     }
-    
-    
-    
     
 }
