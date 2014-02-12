@@ -3,7 +3,7 @@ package trafficintersection;
 
 public class trafficFlow {
     
-    private static int IntervalUpdate = 100;
+    private static final int IntervalUpdate = 100;
     private static int timeFrame = 0;
     private static int lengthOfSimulator = 60000;
     private static String data;
@@ -25,7 +25,7 @@ public class trafficFlow {
 */ 
             //Write to Buffer       
         
-        TrafficStringBuffer.update(data);
+       TrafficStringBuffer.update(data);
 
         //Increment time interval        
         timeFrame += IntervalUpdate;

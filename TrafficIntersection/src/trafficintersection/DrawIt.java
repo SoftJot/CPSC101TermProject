@@ -15,12 +15,14 @@ public class DrawIt extends JPanel implements ActionListener{
 	int car1StartX = -20, car1StartY = 228;
 	int car2StartX = 400, car2StartY = 203;
 
-	int rectDx = 3, rectDy = 0;
+	int rectDx = 3, rectDy = 0; // allows movement in my basic scheme
 
-	int northLightState = 0;
+	int northLightState = 0; // light states for each light
 	int southLightState = 0;
-	int eastLightState;
-	int westLightState;
+	int eastLightState = 0;
+	int westLightState = 0;
+	
+	boolean paused = false;
 
 	final static BasicStroke stroke = new BasicStroke(2.0f);
 	final static float dash1[] = {10.0f};  //for dotted lines along road
@@ -30,6 +32,19 @@ public class DrawIt extends JPanel implements ActionListener{
 											10.0f, dash1, 0.0f);
 
 	DrawIt(){
+		
+		JButton pauseButton = new JButton("pause");
+		pauseButton.setMnemonic(KeyEvent.VK_SPACE);
+		pauseButton.setActionCommand("pause");
+		pauseButton.addActionListener(this);
+		add(pauseButton);
+		
+		JButton startOverButton = new JButton("restart");
+		startOverButton.setMnemonic(KeyEvent.VK_S);
+		startOverButton.setActionCommand("restart");
+		startOverButton.addActionListener(this);
+		add(startOverButton);
+
 		Timer timer = new Timer(33, this);
 		timer.setInitialDelay(200);
 		timer.start();
@@ -80,21 +95,22 @@ public class DrawIt extends JPanel implements ActionListener{
 		JPanel p = new DrawIt();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setContentPane(p);
-		f.setSize(800, 600);
+		f.setSize(600, 450);
 		f.setVisible(true);
 		f.setLocationRelativeTo(null);
 		p.setVisible(true);
-
-		JPanel p2 = new JPanel();
-		f.add(p2);
-		JButton button = new JButton("start Animation");
-		p.add(button);
-  
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		repaint();
-		updateScene();
+	@Override
+	public void actionPerformed(ActionEvent e) {        
+		if ("pause".equals(e.getActionCommand())) {
+			if (paused == false) paused = true;
+			else if (paused == true) paused = false;
+		}
+		if (!paused) {
+			repaint();
+			updateScene();
+		} 
 	}
 
 	private void updateScene() {
