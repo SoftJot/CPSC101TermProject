@@ -26,51 +26,56 @@ public class DrawIt extends JPanel implements ActionListener{
 
 	final static BasicStroke stroke = new BasicStroke(2.0f);
 	final static float dash1[] = {10.0f};  //for dotted lines along road
-	final static BasicStroke dashed = new BasicStroke(1.0f,
-											BasicStroke.CAP_BUTT,
-											BasicStroke.JOIN_MITER,
-											10.0f, dash1, 0.0f);
-
+	final static BasicStroke dashed = new BasicStroke(1.0f,	BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash1, 0.0f);
+	
+	protected JButton restartButton, reverseButton, forwardButton, pauseButton;
+	
 	DrawIt(){
 		this.setLayout(null);
-		JButton restartButton = new JButton("restart");
+		restartButton = new JButton("restart");
 		restartButton.setMnemonic(KeyEvent.VK_E);
-		restartButton.setActionCommand("restart");
-		restartButton.addActionListener(this);
+		restartButton.setEnabled(true);
 		restartButton.setBounds(470, 50, 100, 25);
-		restartButton.setLayout(null);
+		restartButton.setActionCommand("restart");
 		add(restartButton);
 		
-		JButton reverseButton = new JButton("reverse");
+		reverseButton = new JButton("reverse");
 		reverseButton.setMnemonic(KeyEvent.VK_R);
-		reverseButton.setActionCommand("rewind");
-		reverseButton.addActionListener(this);
+		reverseButton.setEnabled(false);
 		reverseButton.setBounds(470, 150, 100, 25);
+		reverseButton.setActionCommand("reverse");
 		add(reverseButton);
 		
 		
-		JButton pauseButton = new JButton("pause");
+		pauseButton = new JButton("pause");
 		pauseButton.setMnemonic(KeyEvent.VK_P);
-		pauseButton.setActionCommand("pause");
-		pauseButton.addActionListener(this);
+		pauseButton.setEnabled(true);
 		pauseButton.setBounds(470, 200, 100, 25);
+		pauseButton.setActionCommand("pause");
 		add(pauseButton);
-		
-		
-		JButton forwardButton = new JButton("foward");
-		forwardButton.setMnemonic(KeyEvent.VK_F);
-		forwardButton.setActionCommand("restart");
-		forwardButton.addActionListener(this);
-		forwardButton.setBounds(470, 250, 100, 25);
-		add(forwardButton);
-		
-		
-		
 
-		Timer timer = new Timer(33, this); // sets current FPS
+
+		forwardButton = new JButton("forward");
+		forwardButton.setMnemonic(KeyEvent.VK_F);
+		forwardButton.setEnabled(false);
+		forwardButton.setBounds(470, 250, 100, 25);
+		forwardButton.setActionCommand("forward");
+		add(forwardButton);
+
+		restartButton.addActionListener(this);
+		reverseButton.addActionListener(this);
+		pauseButton.addActionListener(this);
+		forwardButton.addActionListener(this);
+
+		restartButton.setToolTipText("Restart Simulation");
+		reverseButton.setToolTipText("Step back one frame");
+		pauseButton.setToolTipText("Pause Simulation");
+		forwardButton.setToolTipText("Step forward one frame");
+		
+				Timer timer = new Timer(33, this); // sets current FPS
 		timer.setInitialDelay(200);
 		timer.start();
-	
+			
 	}
 	
 	@Override
@@ -131,13 +136,33 @@ public class DrawIt extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {        
 		if ("pause".equals(e.getActionCommand())) {
-			if (paused == false) paused = true;
-			else if (paused == true) paused = false;
+			if (paused == false) {
+				paused = true;
+				pauseButton.setText("resume");
+				reverseButton.setEnabled(paused);
+				forwardButton.setEnabled(paused); 
+			} else {
+				paused = false;
+				pauseButton.setText("pause");
+				reverseButton.setEnabled(paused);
+				forwardButton.setEnabled(paused); 
+			}
 		}
+		
+		if ("restart".equals(e.getActionCommand())) {
+			System.out.println("restarting");
+			car1StartX = -20;
+			car1StartY = 228;
+			car2StartX = 400;
+			car2StartY = 203;
+		}
+		
 		if (!paused) {
 			repaint();
 			updateScene();
-		} 
+		} else {
+
+		}
 	}
 
 	private void updateScene() {
