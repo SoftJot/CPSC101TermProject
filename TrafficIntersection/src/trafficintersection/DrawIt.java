@@ -32,22 +32,45 @@ public class DrawIt extends JPanel implements ActionListener{
 											10.0f, dash1, 0.0f);
 
 	DrawIt(){
+		this.setLayout(null);
+		JButton restartButton = new JButton("restart");
+		restartButton.setMnemonic(KeyEvent.VK_E);
+		restartButton.setActionCommand("restart");
+		restartButton.addActionListener(this);
+		restartButton.setBounds(470, 50, 100, 25);
+		restartButton.setLayout(null);
+		add(restartButton);
+		
+		JButton reverseButton = new JButton("reverse");
+		reverseButton.setMnemonic(KeyEvent.VK_R);
+		reverseButton.setActionCommand("rewind");
+		reverseButton.addActionListener(this);
+		reverseButton.setBounds(470, 150, 100, 25);
+		add(reverseButton);
+		
 		
 		JButton pauseButton = new JButton("pause");
-		pauseButton.setMnemonic(KeyEvent.VK_SPACE);
+		pauseButton.setMnemonic(KeyEvent.VK_P);
 		pauseButton.setActionCommand("pause");
 		pauseButton.addActionListener(this);
+		pauseButton.setBounds(470, 200, 100, 25);
 		add(pauseButton);
 		
-		JButton startOverButton = new JButton("restart");
-		startOverButton.setMnemonic(KeyEvent.VK_S);
-		startOverButton.setActionCommand("restart");
-		startOverButton.addActionListener(this);
-		add(startOverButton);
+		
+		JButton forwardButton = new JButton("foward");
+		forwardButton.setMnemonic(KeyEvent.VK_F);
+		forwardButton.setActionCommand("restart");
+		forwardButton.addActionListener(this);
+		forwardButton.setBounds(470, 250, 100, 25);
+		add(forwardButton);
+		
+		
+		
 
-		Timer timer = new Timer(33, this);
+		Timer timer = new Timer(33, this); // sets current FPS
 		timer.setInitialDelay(200);
 		timer.start();
+	
 	}
 	
 	@Override
@@ -63,12 +86,13 @@ public class DrawIt extends JPanel implements ActionListener{
 		g2d.setStroke(dashed);
 		g2d.drawRect(225, -10, 240, 460);
 		g2d.drawRect(-20, 225, 470, 240);
-
+		g2d.setStroke(stroke);
+		
 		g2d.setColor(Color.GRAY); //draw intersection pavement over the dots
 		g2d.fillRect(200, 200, 51, 51);
 
 		Color seaGreen = new Color(46, 139, 87);
-		g2d.setColor(seaGreen); //draw grassy area overtop
+		g2d.setColor(seaGreen); //draw 4 grassy areas
 		g2d.fillRect(250, 0, 200, 200);
 		g2d.fillRect(0, 250, 200, 200);
 		g2d.fillRect(250, 250, 200, 200);
@@ -88,6 +112,8 @@ public class DrawIt extends JPanel implements ActionListener{
 		g2d.setColor(firebrick);  //truckbox
 		g2d.fillRect(car2StartX + 34, car2StartY + 2, truckWidth - 25, CAR_HEIGHT - 4);
 
+		g2d.setColor(Color.WHITE); // control panel background
+		g2d.fillRect(451, 0, 200, 450);
 	}
 
 	public static void showAnimation() {
@@ -95,7 +121,8 @@ public class DrawIt extends JPanel implements ActionListener{
 		JPanel p = new DrawIt();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setContentPane(p);
-		f.setSize(600, 450);
+		f.setSize(600, 479);
+		f.setResizable(false);
 		f.setVisible(true);
 		f.setLocationRelativeTo(null);
 		p.setVisible(true);
