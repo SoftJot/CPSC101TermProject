@@ -1,16 +1,16 @@
 /*
 	Goals: ranked more important to less
 
-	actually parse data
+	<1/2 done>actually parse data
 	add blinkers on cars
 	make cars turn, nicely
 	(done)change lights location to reflect reality
-	add a stop line
+	(done)add a stop line
 	make SlowMo/SloRewind buttons work
 	add fast forward ( increase FPS )
 	add backwards capability (ugh, read the file backwards from that point?)
 
-	round street corners to look less akward
+	(done)round street corners to look less akward
 	make motorbike
 	make rig
 	add fps meter
@@ -54,7 +54,7 @@ public class DrawIt extends JPanel implements ActionListener{
 	boolean paused = false;
 	boolean northRed = ((northLightState != 0));   //temp lightcyle variable
 	int cycleCount=0; 
-	boolean pickOne = true;
+	boolean pickOne = true; //swap between lights styles
 		
 	final static BasicStroke stroke = new BasicStroke(2.0f);
 	final static float dash1[] = {10.0f};  //for dotted lines along road
@@ -190,168 +190,168 @@ public class DrawIt extends JPanel implements ActionListener{
 	if (pickOne) {	
 		if (eastLightState == 0) { //eastbound lights
 			g2d.setColor(Color.red);
-			g2d.fillRect(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2, LIGHT_HEIGHT,LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, LIGHT_WIDTH, LIGHT_HEIGHT);
-			g2d.fillRect(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2 + (2*LIGHT_HEIGHT), LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2 + (2*LIGHT_HEIGHT), LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else if (eastLightState == 1) {
 			g2d.setColor(Color.orange);
-			g2d.fillRect(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2, LIGHT_WIDTH, LIGHT_HEIGHT);
-			g2d.fillRect(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2 + (2*LIGHT_HEIGHT), LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2 + (2*LIGHT_HEIGHT), LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else {
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2, LIGHT_WIDTH, LIGHT_HEIGHT);
-			g2d.fillRect(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.green);
-			g2d.fillRect(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2 + (2*LIGHT_HEIGHT), LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK -2, BASE_BLOCK + CAR_WIDTH -2 + (2*LIGHT_HEIGHT), LIGHT_HEIGHT, LIGHT_HEIGHT);
 		}
 
 		if (southLightState == 0) {  //southbound
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK + 2, BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_WIDTH);
-			g2d.fillRect(BASE_BLOCK + 2 + LIGHT_HEIGHT, BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + 2, BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK + 2 + LIGHT_HEIGHT, BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.red);
-			g2d.fillRect(BASE_BLOCK + 2 +(2*LIGHT_HEIGHT), BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + 2 +(2*LIGHT_HEIGHT), BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else if (southLightState == 1) {
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK + 2, BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + 2, BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.orange);
-			g2d.fillRect(BASE_BLOCK + 2 + LIGHT_HEIGHT, BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + 2 + LIGHT_HEIGHT, BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK + 2 +(2*LIGHT_HEIGHT), BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + 2 +(2*LIGHT_HEIGHT), BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else {
 			g2d.setColor(Color.green);
-			g2d.fillRect(BASE_BLOCK + 2, BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + 2, BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK + 2 + LIGHT_HEIGHT, BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_WIDTH);
-			g2d.fillRect(BASE_BLOCK + 2 +(2*LIGHT_HEIGHT), BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + 2 + LIGHT_HEIGHT, BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK + 2 +(2*LIGHT_HEIGHT), BASE_BLOCK -2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 		}
 
 		if (northLightState == 0) {
 			g2d.setColor(Color.red);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2, BASE_BLOCK_AND_ROAD + 2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH - 2, BASE_BLOCK_AND_ROAD - 2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, BASE_BLOCK_AND_ROAD + 2, LIGHT_HEIGHT, LIGHT_WIDTH);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2 +(2*LIGHT_HEIGHT), BASE_BLOCK_AND_ROAD + 2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH - 2 + LIGHT_HEIGHT, BASE_BLOCK_AND_ROAD - 2, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH - 2 +(2*LIGHT_HEIGHT), BASE_BLOCK_AND_ROAD - 2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else if (northLightState == 1) {
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2, BASE_BLOCK_AND_ROAD + 2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH - 2, BASE_BLOCK_AND_ROAD - 2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.orange);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, BASE_BLOCK_AND_ROAD + 2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH - 2 + LIGHT_HEIGHT, BASE_BLOCK_AND_ROAD - 2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2 +(2*LIGHT_HEIGHT), BASE_BLOCK_AND_ROAD + 2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH - 2 +(2*LIGHT_HEIGHT), BASE_BLOCK_AND_ROAD - 2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else {
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2, BASE_BLOCK_AND_ROAD + 2, LIGHT_HEIGHT, LIGHT_WIDTH);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, BASE_BLOCK_AND_ROAD + 2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH - 2, BASE_BLOCK_AND_ROAD - 2, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH - 2 + LIGHT_HEIGHT, BASE_BLOCK_AND_ROAD - 2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.green);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2 +(2*LIGHT_HEIGHT), BASE_BLOCK_AND_ROAD + 2, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH - 2 +(2*LIGHT_HEIGHT), BASE_BLOCK_AND_ROAD - 2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 		}
 
 		if (westLightState == 0) {  //westbound traffic
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + 2, BASE_BLOCK + 2, LIGHT_WIDTH, LIGHT_HEIGHT);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + 2, BASE_BLOCK + LIGHT_HEIGHT + 2, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD -2, BASE_BLOCK +2, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD -2, BASE_BLOCK +2 + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.red);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + 2, BASE_BLOCK +(2*LIGHT_HEIGHT) + 2, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD -2, BASE_BLOCK +2 +(2*LIGHT_HEIGHT), LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else if (westLightState == 1) {
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + 2, BASE_BLOCK + 2, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD -2, BASE_BLOCK +2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.orange);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + 2, BASE_BLOCK + LIGHT_HEIGHT + 2, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD -2, BASE_BLOCK +2 + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + 2, BASE_BLOCK +(2*LIGHT_HEIGHT) + 2, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD -2, BASE_BLOCK +2 +(2*LIGHT_HEIGHT), LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else {
 			g2d.setColor(Color.green);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + 2, BASE_BLOCK + 2, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD -2, BASE_BLOCK +2, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + 2, BASE_BLOCK + LIGHT_HEIGHT + 2, LIGHT_WIDTH, LIGHT_HEIGHT);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + 2, BASE_BLOCK +(2*LIGHT_HEIGHT) + 2, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD -2, BASE_BLOCK +2 + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD -2, BASE_BLOCK +2 +(2*LIGHT_HEIGHT), LIGHT_HEIGHT, LIGHT_HEIGHT);
 		}
 	} else {
 			if (eastLightState == 0) { //eastbound lights
 			g2d.setColor(Color.red);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH + LIGHT_HEIGHT, LIGHT_WIDTH, LIGHT_HEIGHT);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH + (2*LIGHT_HEIGHT), LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH + (2*LIGHT_HEIGHT), LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else if (eastLightState == 1) {
 			g2d.setColor(Color.orange);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH + LIGHT_HEIGHT, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH, LIGHT_WIDTH, LIGHT_HEIGHT);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH + (2*LIGHT_HEIGHT), LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH + (2*LIGHT_HEIGHT), LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else {
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH, LIGHT_WIDTH, LIGHT_HEIGHT);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH + LIGHT_HEIGHT, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.green);
-			g2d.fillRect(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH + (2*LIGHT_HEIGHT), LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, BASE_BLOCK + CAR_WIDTH + (2*LIGHT_HEIGHT), LIGHT_HEIGHT, LIGHT_HEIGHT);
 		}
 
 		if (southLightState == 0) {
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK, BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
-			g2d.fillRect(BASE_BLOCK + LIGHT_HEIGHT, BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK, BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK + LIGHT_HEIGHT, BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.red);
-			g2d.fillRect(BASE_BLOCK +(2*LIGHT_HEIGHT), BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK +(2*LIGHT_HEIGHT), BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else if (southLightState == 1) {
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK, BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK, BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.orange);
-			g2d.fillRect(BASE_BLOCK + LIGHT_HEIGHT, BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + LIGHT_HEIGHT, BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK +(2*LIGHT_HEIGHT), BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK +(2*LIGHT_HEIGHT), BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else {
 			g2d.setColor(Color.green);
-			g2d.fillRect(BASE_BLOCK, BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK, BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK + LIGHT_HEIGHT, BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
-			g2d.fillRect(BASE_BLOCK +(2*LIGHT_HEIGHT), BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + LIGHT_HEIGHT, BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK +(2*LIGHT_HEIGHT), BASE_BLOCK_AND_ROAD + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 		}
 
 		if (northLightState == 0) {
 			g2d.setColor(Color.red);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2, BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH -2, BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2 +(2*LIGHT_HEIGHT), BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH -2 +(2*LIGHT_HEIGHT), BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else if (northLightState == 1) {
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2, BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH -2, BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.orange);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2 +(2*LIGHT_HEIGHT), BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH -2 +(2*LIGHT_HEIGHT), BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else {
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2, BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH -2, BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH -2 + LIGHT_HEIGHT, BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.green);
-			g2d.fillRect(BASE_BLOCK + CAR_WIDTH -2 +(2*LIGHT_HEIGHT), BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_WIDTH);
+			g2d.fillOval(BASE_BLOCK + CAR_WIDTH -2 +(2*LIGHT_HEIGHT), BASE_BLOCK - LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 		}
 
 		if (westLightState == 0) {
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK, LIGHT_WIDTH, LIGHT_HEIGHT);
-			g2d.fillRect(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK + LIGHT_HEIGHT, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.red);
-			g2d.fillRect(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK +(2*LIGHT_HEIGHT), LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK +(2*LIGHT_HEIGHT), LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else if (westLightState == 1) {
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.orange);
-			g2d.fillRect(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK + LIGHT_HEIGHT, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK +(2*LIGHT_HEIGHT), LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK +(2*LIGHT_HEIGHT), LIGHT_HEIGHT, LIGHT_HEIGHT);
 		} else {
 			g2d.setColor(Color.green);
-			g2d.fillRect(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK, LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK, LIGHT_HEIGHT, LIGHT_HEIGHT);
 			g2d.setColor(Color.black);
-			g2d.fillRect(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK + LIGHT_HEIGHT, LIGHT_WIDTH, LIGHT_HEIGHT);
-			g2d.fillRect(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK +(2*LIGHT_HEIGHT), LIGHT_WIDTH, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK + LIGHT_HEIGHT, LIGHT_HEIGHT, LIGHT_HEIGHT);
+			g2d.fillOval(BASE_BLOCK- LIGHT_HEIGHT, BASE_BLOCK +(2*LIGHT_HEIGHT), LIGHT_HEIGHT, LIGHT_HEIGHT);
 		}
 	}
 		g2d.setColor(Color.WHITE); // control panel background
@@ -394,7 +394,6 @@ public class DrawIt extends JPanel implements ActionListener{
 		}
 
 		if ("restart".equals(e.getActionCommand())) {
-			System.out.println("restarting");
 			// reset loop from start, but use this for now
 			car1LocX = -20;
 			car1LocY = 228;  //proof of function
@@ -406,6 +405,8 @@ public class DrawIt extends JPanel implements ActionListener{
 		
 		if ("styles".equals(e.getActionCommand())) {
 			pickOne = !pickOne;
+			repaint();
+//			updateScene();
 		}
 
 		if (!paused) {
@@ -472,7 +473,6 @@ public class DrawIt extends JPanel implements ActionListener{
 			cycleCount++;
 			
 		} else {
-			System.out.println("times up!");
 			northRed = !northRed;
 			cycleCount=0;
 		}
