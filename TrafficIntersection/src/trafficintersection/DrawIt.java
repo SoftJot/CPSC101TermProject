@@ -1,21 +1,17 @@
 /*
 	Goals: ranked more important to less
 
-	<1/2 done>actually parse data
+	<started>actually parse data
 	add blinkers on cars
 	make cars turn, nicely
-	(done)change lights location to reflect reality
-	(done)add a stop line
 	make SlowMo/SloRewind buttons work
 	add fast forward ( increase FPS )
 	add backwards capability (ugh, read the file backwards from that point?)
 
-	(done)round street corners to look less akward
 	make motorbike
 	make rig
 	add fps meter
 
-	change lights to circles
 	add pleasing things, clouds. day/night (headlights)
 
 
