@@ -5,13 +5,13 @@
 	
 	move computing code out of Drawing method to a new method (class?)
 	
-	make cars turn, nicely
+	make cars turn, nicely (maybe not for this projcect)
 	make SlowMo/SloRewind buttons work
 	add fast forward ( increase FPS )
-	add backwards capability (ugh, read the file backwards from that point?)
+	add backwards capability
 
-	make motorbike
-	make rig
+	make motorbike ??
+	make rig  ??
 	add fps meter
 
 	add pleasing things, clouds. day/night (headlights)
@@ -48,7 +48,7 @@ public class DrawIt extends JPanel implements ActionListener{
 	int car7LocX = 228, car7LocY = 230;	// truck n
 	int car8LocX = 203, car8LocY = 70;	// truck s
 
-	int rectDx = 3, rectDy = 0; // movement magnitude in my basic scheme
+	int speedOffSetX = 0, speedOffSetY = 0; // movement magnitude in my basic scheme
 
 	int northLightState = 0;	// initial light states for each light
 	int southLightState = 0;	// 0red,1orange,2green
@@ -132,6 +132,7 @@ public class DrawIt extends JPanel implements ActionListener{
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		Color seaGreen = new Color(46, 139, 87);
+		Color signalOrange = new Color(255, 153, 51);
 		Color fireBrick = new Color(178, 34, 34);
 
 		g2d.setColor(Color.GRAY); //draw pavement
@@ -174,104 +175,128 @@ public class DrawIt extends JPanel implements ActionListener{
 		
 		// end playing field 
 
-		// draw some vehicles now, so they go over the road
+		// draw vehicles for next "layer"
 
-		g2d.setColor(Color.blue);  // blue car facing east
+		g2d.setColor(Color.blue);				// blue car facing east
 		g2d.fillRect(car1LocX, car1LocY, CAR_WIDTH, CAR_HEIGHT);
-		g2d.setColor(Color.red);  // rear signal lights
+		g2d.setColor(Color.red);				// rear signal lights
 		g2d.fillRect(car1LocX, car1LocY + 2,								1, 4);
 		g2d.fillRect(car1LocX, car1LocY + CAR_HEIGHT - 6,					1, 4);
-		g2d.setColor(Color.white);  // front head lights
+		g2d.setColor(Color.white);				// front head lights
 		g2d.fillRect(car1LocX + CAR_WIDTH, car1LocY + 2,					1, 4);
 		g2d.fillRect(car1LocX + CAR_WIDTH, car1LocY + CAR_HEIGHT - 6,		1, 4);
-		g2d.setColor(Color.LIGHT_GRAY);  //windshield
+		g2d.setColor(signalOrange);				// front signal lights
+		g2d.fillRect(car1LocX + CAR_WIDTH - 2, car1LocY,					2, 1);
+		g2d.fillRect(car1LocX + CAR_WIDTH - 2, car1LocY + CAR_HEIGHT - 1,	2, 1);
+		g2d.setColor(Color.LIGHT_GRAY);			//windshield
 		g2d.fillRect(car1LocX + 18, car1LocY + 2, CAR_WIDTH - 26, CAR_HEIGHT - 4);
 		
-		g2d.setColor(Color.blue);  // blue car facing west
+		g2d.setColor(Color.blue);			// blue car facing west
 		g2d.fillRect(car4LocX, car4LocY, CAR_WIDTH, CAR_HEIGHT);
-		g2d.setColor(Color.red);  // rear signal lights
+		g2d.setColor(Color.red);			// rear signal lights
 		g2d.fillRect(car4LocX + CAR_WIDTH - 1, car4LocY + 2,				1, 4);
 		g2d.fillRect(car4LocX + CAR_WIDTH - 1, car4LocY + CAR_HEIGHT - 6,	1, 4);
-		g2d.setColor(Color.white);  // front head lights
+		g2d.setColor(signalOrange);			// font signal lights
+		g2d.fillRect(car4LocX, car4LocY,									2, 1);
+		g2d.fillRect(car4LocX, car4LocY + CAR_HEIGHT - 1,					2, 1);
+		g2d.setColor(Color.white);			// front head lights
 		g2d.fillRect(car4LocX - 1, car4LocY + 2,							1, 4);
 		g2d.fillRect(car4LocX - 1, car4LocY + CAR_HEIGHT - 6,				1, 4);
-		g2d.setColor(Color.LIGHT_GRAY);  //windshield
+		g2d.setColor(Color.LIGHT_GRAY);		//windshield
 		g2d.fillRect(car4LocX + 8, car4LocY + 2, CAR_WIDTH - 26, CAR_HEIGHT - 4);
 		
-		g2d.setColor(Color.blue);  // blue car facing north
+		g2d.setColor(Color.blue);			// blue car facing north
 		g2d.fillRect(car5LocX, car5LocY, CAR_HEIGHT, CAR_WIDTH);
-		g2d.setColor(Color.red);  // rear signal lights
+		g2d.setColor(Color.red);			// rear signal lights
 		g2d.fillRect(car5LocX + 2, car5LocY + CAR_WIDTH - 1,				4, 1);
 		g2d.fillRect(car5LocX + CAR_HEIGHT - 6, car5LocY  + CAR_WIDTH - 1,	4, 1);
-		g2d.setColor(Color.white);  // front head lights
+		g2d.setColor(Color.white);			// front head lights
 		g2d.fillRect(car5LocX + 2, car5LocY - 1,							4, 1);
 		g2d.fillRect(car5LocX + CAR_HEIGHT - 6, car5LocY - 1,				4, 1);
-		g2d.setColor(Color.LIGHT_GRAY);  //windshield
+		g2d.setColor(signalOrange);			// front signal lights
+		g2d.fillRect(car5LocX, car5LocY,									1, 2);
+		g2d.fillRect(car5LocX + CAR_HEIGHT - 1, car5LocY,					1, 2);
+		g2d.setColor(Color.LIGHT_GRAY);		//windshield
 		g2d.fillRect(car5LocX + 2, car5LocY + 8, CAR_HEIGHT - 4, CAR_WIDTH - 26);
 		
-		g2d.setColor(Color.blue);  // blue car facing south
+		g2d.setColor(Color.blue);			// blue car facing south
 		g2d.fillRect(car6LocX, car6LocY, CAR_HEIGHT, CAR_WIDTH);
-		g2d.setColor(Color.red);  // rear signal lights
+		g2d.setColor(Color.red);			// rear signal lights
 		g2d.fillRect(car6LocX + 2, car6LocY,								4, 1);
 		g2d.fillRect(car6LocX + CAR_HEIGHT - 6, car6LocY,					4, 1);
-		g2d.setColor(Color.white);  // front head lights
+		g2d.setColor(Color.white);			// front head lights
 		g2d.fillRect(car6LocX + 2, car6LocY + CAR_WIDTH,					4, 1);
 		g2d.fillRect(car6LocX + CAR_HEIGHT - 6, car6LocY + CAR_WIDTH,		4, 1);
-		g2d.setColor(Color.LIGHT_GRAY);  //windshield
+		g2d.setColor(signalOrange);			// front signal lights
+		g2d.fillRect(car6LocX, car6LocY + CAR_WIDTH - 2,					1, 2);
+		g2d.fillRect(car6LocX + CAR_HEIGHT - 1, car6LocY + CAR_WIDTH - 2,	1, 2);
+		g2d.setColor(Color.LIGHT_GRAY);		//windshield
 		g2d.fillRect(car6LocX + 2, car6LocY + 18, CAR_HEIGHT - 4, CAR_WIDTH - 26);
 		
 		
 
-		g2d.setColor(fireBrick);  //fireBrick truck facing west
+		g2d.setColor(fireBrick);			//fireBrick truck facing west
 		g2d.fillRect(car2LocX, car2LocY, TRUCKWIDTH, CAR_HEIGHT);
-		g2d.setColor(Color.white);  // head lights
-		g2d.fillRect(car2LocX - 1, car2LocY + 2, 1, 4);
+		g2d.setColor(Color.white);			// head lights
+		g2d.fillRect(car2LocX - 1, car2LocY + 2,							1, 4);
 		g2d.fillRect(car2LocX - 1, car2LocY + CAR_HEIGHT - 6,				1, 4);
-		g2d.setColor(Color.red);  // tail lights
+		g2d.setColor(signalOrange);			// font signal lights
+		g2d.fillRect(car2LocX, car2LocY,									2, 1);
+		g2d.fillRect(car2LocX, car2LocY + CAR_HEIGHT - 1,					2, 1);
+		g2d.setColor(Color.red);			// tail lights
 		g2d.fillRect(car2LocX + TRUCKWIDTH - 1, car2LocY + 1,				1, 4);
 		g2d.fillRect(car2LocX + TRUCKWIDTH - 1, car2LocY + 15,				1, 4);
-		g2d.setColor(Color.LIGHT_GRAY);  //windshield
+		g2d.setColor(Color.LIGHT_GRAY);		//windshield
 		g2d.fillRect(car2LocX + 10, car2LocY + 2, TRUCKWIDTH - 35, CAR_HEIGHT - 4);
-		g2d.setColor(Color.DARK_GRAY);  //truckbox
+		g2d.setColor(Color.DARK_GRAY);		//truckbox
 		g2d.fillRect(car2LocX + 24, car2LocY + 2, TRUCKWIDTH - 25, CAR_HEIGHT - 4);
 
-		g2d.setColor(fireBrick);  //fireBrick truck facing east
+		g2d.setColor(fireBrick);			//fireBrick truck facing east
 		g2d.fillRect(car3LocX, car3LocY, TRUCKWIDTH, CAR_HEIGHT);
-		g2d.setColor(Color.red);  // rear signal lights
+		g2d.setColor(Color.red);			// rear signal lights
 		g2d.fillRect(car3LocX, car3LocY + 1, 1, 4);
 		g2d.fillRect(car3LocX, car3LocY + CAR_HEIGHT - 5,					1, 4);
-		g2d.setColor(Color.white);  // front head lights
+		g2d.setColor(signalOrange);				// front signal lights
+		g2d.fillRect(car3LocX + TRUCKWIDTH - 2, car1LocY,					2, 1);
+		g2d.fillRect(car3LocX + TRUCKWIDTH - 2, car1LocY + CAR_HEIGHT - 1,	2, 1);
+		g2d.setColor(Color.white);			// front head lights
 		g2d.fillRect(car3LocX + TRUCKWIDTH, car3LocY + 2,					1, 4);
-		g2d.fillRect(car3LocX + TRUCKWIDTH, car3LocY + CAR_HEIGHT - 6, 1, 4);
-		g2d.setColor(Color.LIGHT_GRAY);  //windshield
+		g2d.fillRect(car3LocX + TRUCKWIDTH, car3LocY + CAR_HEIGHT - 6,		1, 4);
+		g2d.setColor(Color.LIGHT_GRAY);		//windshield
 		g2d.fillRect(car3LocX + 26, car3LocY + 2, TRUCKWIDTH - 35, CAR_HEIGHT - 4);
-		g2d.setColor(Color.DARK_GRAY);  //truckbox
+		g2d.setColor(Color.DARK_GRAY);		//truckbox
 		g2d.fillRect(car3LocX + 1, car3LocY + 2, TRUCKWIDTH - 25, CAR_HEIGHT - 4);
 
-		g2d.setColor(fireBrick);  //fireBrick truck facing north
+		g2d.setColor(fireBrick);			//fireBrick truck facing north
 		g2d.fillRect(car7LocX, car7LocY, CAR_HEIGHT, TRUCKWIDTH);
-		g2d.setColor(Color.red);  // rear signal lights
+		g2d.setColor(Color.red);			// rear signal lights
 		g2d.fillRect(car7LocX + 2, car7LocY + TRUCKWIDTH - 1,				4, 1);
 		g2d.fillRect(car7LocX + CAR_HEIGHT - 6, car7LocY  + TRUCKWIDTH - 1,	4, 1);
-		g2d.setColor(Color.white);  // front head lights
+		g2d.setColor(signalOrange);			// front signal lights
+		g2d.fillRect(car7LocX, car7LocY,									1, 2);
+		g2d.fillRect(car7LocX + CAR_HEIGHT - 1, car7LocY,					1, 2);
+		g2d.setColor(Color.white);			// front head lights
 		g2d.fillRect(car7LocX + 2, car7LocY - 1,							4, 1);
 		g2d.fillRect(car7LocX + CAR_HEIGHT - 6, car7LocY - 1,				4, 1);
-		g2d.setColor(Color.LIGHT_GRAY);  //windshield
+		g2d.setColor(Color.LIGHT_GRAY);		//windshield
 		g2d.fillRect(car7LocX + 2, car7LocY + 10, CAR_HEIGHT - 4, TRUCKWIDTH - 35);
-		g2d.setColor(Color.DARK_GRAY);  //truckbox
+		g2d.setColor(Color.DARK_GRAY);		//truckbox
 		g2d.fillRect(car7LocX + 2, car7LocY + 23, TRUCKWIDTH - 24, CAR_HEIGHT - 4);
 
-		g2d.setColor(fireBrick);  //fireBrick truck facing south
+		g2d.setColor(fireBrick);			//fireBrick truck facing south
 		g2d.fillRect(car8LocX, car8LocY, CAR_HEIGHT, TRUCKWIDTH);
-		g2d.setColor(Color.red);  // rear signal lights
+		g2d.setColor(Color.red);			// rear signal lights
 		g2d.fillRect(car8LocX + 2, car8LocY,								4, 1);
 		g2d.fillRect(car8LocX + CAR_HEIGHT - 6, car8LocY,					4, 1);
-		g2d.setColor(Color.white);  // front head lights
+		g2d.setColor(Color.white);			// front head lights
 		g2d.fillRect(car8LocX + 2, car8LocY + TRUCKWIDTH,					4, 1);
 		g2d.fillRect(car8LocX + CAR_HEIGHT - 6, car8LocY + TRUCKWIDTH,		4, 1);
-		g2d.setColor(Color.LIGHT_GRAY);  //windshield
+		g2d.setColor(signalOrange);			// front signal lights
+		g2d.fillRect(car8LocX, car8LocY + TRUCKWIDTH - 2,					1, 2);
+		g2d.fillRect(car8LocX + CAR_HEIGHT - 1, car8LocY + TRUCKWIDTH - 2,	1, 2);
+		g2d.setColor(Color.LIGHT_GRAY);		//windshield
 		g2d.fillRect(car8LocX + 2, car8LocY + 26, CAR_HEIGHT - 4, TRUCKWIDTH - 35);
-		g2d.setColor(Color.DARK_GRAY);  //truckbox
+		g2d.setColor(Color.DARK_GRAY);		//truckbox
 		g2d.fillRect(car8LocX + 2, car8LocY + 1, TRUCKWIDTH - 24, CAR_HEIGHT - 4);
 
 		
@@ -475,7 +500,7 @@ public class DrawIt extends JPanel implements ActionListener{
 		
 		if ("styles".equals(e.getActionCommand())) {
 			pickOne = !pickOne;
-			repaint();
+//			repaint();
 //			updateScene();
 		}
 
@@ -497,18 +522,49 @@ public class DrawIt extends JPanel implements ActionListener{
 
 
 //		/*
-		if (car1LocX > 450) { //cheezy repeating loop, car one
-		car1LocX = -20;
-		}
+		//fake "movement"
+		car1LocX += speedOffSetX + 1;
+		car2LocX += speedOffSetX - 2; 
+		car3LocX += speedOffSetX + 3; 
+		car4LocX += speedOffSetX - 4;
+		car5LocY += speedOffSetY - 1;
+		car6LocY += speedOffSetY + 2;
+		car7LocY += speedOffSetY - 3;
+		car8LocY += speedOffSetY + 3;
 		
-		car2LocX += (-rectDx - 2); // faking forward/backward movement until I read real data
-		car2LocY += rectDy;
-		car1LocX += rectDx;
-		car1LocY += rectDy;
-		
-		if (car2LocX < -30) { // cheezy repeating loop for car two
-		car2LocX = 400;
+		if (car1LocX > 450) { 
+			car1LocX = -30;
 		}
+
+		if (car2LocX < -40) { // repeat for fun!
+			car2LocX = 400;
+		}
+
+		if (car3LocX > 450) { 
+			car3LocX = -40;
+		}
+
+		if (car4LocX < -30) { 
+			car4LocX = 400;
+		}
+
+		if (car5LocY < -40) { 
+			car5LocY = 400;
+		}
+
+		if (car6LocY > 450) { // repeat for fun!
+			car6LocY = -40;
+		}
+
+		if (car7LocY < -40) { 
+			car7LocY = 400;
+		}
+
+		if (car8LocY > 450) { 
+			car8LocY = -40;
+		}
+
+		
 //		*/
 		
 
