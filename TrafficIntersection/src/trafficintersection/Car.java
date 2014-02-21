@@ -5,19 +5,18 @@ package trafficintersection;
 
 public class Car {
 
-    private char type;       // 'c'ar, 't'ruck, 'm'otorcycle, 's'emi indicates "size of vehicle"
-    private char heading;    // the direct car is heading 'n'orth 's'outh 'e'ast 'w'est
-    private char destination;// final goal direction 'n'orth 's'outh 'e'ast 'w'est
-    private int xLoc;        // where its "x" coordinate is on the 440x440 map
-    private int yLoc;        // where its "x" coordinate is on the 440x440 map
-    private int speed;       // speed of vehicle
+    private static char type;       // 'c'ar, 't'ruck, 'm'otorcycle, 's'emi indicates "size of vehicle"
+    private static char heading;    // the direct car is heading 'n'orth 's'outh 'e'ast 'w'est
+    private static char destination;// final goal direction 'n'orth 's'outh 'e'ast 'w'est
+    private static int xLoc;        // where its "x" coordinate is on the 440x440 map
+    private static int yLoc;        // where its "x" coordinate is on the 440x440 map
+    private static int speed;       // speed of vehicle
+    private static int color;      // color of vehicle
+    private static int height;      // height of vehicle
+    private static int width;      // width of vehicle
     
-    
-    public Car() { //default empty contructor , Do we need?
 
-    }
-
-    public Car( char type, int x, int y, char heading, char destination, int speed) { //proper constructor
+    public Car( char type, int x, int y, char heading, char destination, int speed) { // sim creation constructor
         setType(type);
         setXLoc(x);
         setYLoc(y);
@@ -25,16 +24,26 @@ public class Car {
         setDestination(destination);
         setSpeed(speed);
     }
+	
+	public Car( char type, int x, int y, char heading, int speed) { // drawing constructor
+        setType(type);
+        setXLoc(x);
+        setYLoc(y);
+        setHeading(heading);
+        setSpeed(speed);
+        setHeight();
+        setWidth();
+    }
     
-    public char getType (){
+    public static char getType (){
         return type;
     }
     
-    public void setType (char t){
-        type = t;
+    public void setType (char v){
+        type = v;
     }
 
-    public int getXLoc (){
+    public static int getXLoc (){
         return xLoc;
     }
 
@@ -42,7 +51,7 @@ public class Car {
         xLoc = x;
     }
     
-    public int getYLoc (){
+    public static int getYLoc (){
         return yLoc;
     }
 
@@ -58,7 +67,7 @@ public class Car {
        destination = dest;
     }
     
-    public int getSpeed () {
+    public static int getSpeed () {
         return speed;
     }
 
@@ -66,12 +75,45 @@ public class Car {
         speed = spd;
     }
 
-    public char getHeading() {
-        return heading;
-    }
-
     public void setHeading(char head) {
        heading = head;
     }
+
+	public static char getHeading() {
+        return heading;
+    }
+
+
+	public void setHeight () {
+		if (getHeading() == 'n' || getHeading() == 's') {
+			if (getType() =='c'){
+				height = 30;
+			} else {
+				height = 40;
+			}
+		} else {
+			height = 20;
+		}
+    }
+    
+	public void setWidth () {
+		if (getHeading() == 'e' || getHeading() == 'w') {
+			if (getType() == 'c'){
+				width = 30;
+			} else {
+				width = 40;
+			}
+		} else {
+			width = 20;
+		}
+    }
+
+	public static int getHeight () {
+		return height;
+	}
+    
+	public static int getWidth () {
+		return width;
+	}
 
 }
